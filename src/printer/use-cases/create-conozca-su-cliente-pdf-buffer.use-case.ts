@@ -371,44 +371,44 @@ export class CreateConozcaSuClientePdfBufferUseCase {
       provincia: { x: 380, y: 687, maxW: 100, size: 7 },
       canton: { x: 427, y: 687, maxW: 150, size: 7 },
       parroquia: { x: 475, y: 687, maxW: 150, size: 7 },
-      direccionDomicilio: { x: 150, y: 680, maxW: 300, size: 10 },
-      telefono: { x: 150, y: 610, maxW: 150, size: 10 },
-      profesion: { x: 350, y: 610, maxW: 150, size: 10 },
-      email: { x: 150, y: 595, maxW: 250, size: 9 },
+      direccionDomicilio: { x: 125, y: 676, maxW: 295, size: 9 },
+      telefono: { x: 370, y: 675, maxW: 148, size: 9 },
+      profesion: { x: 150, y: 660, maxW: 140, size: 9 },
+      email: { x: 370, y: 662, maxW: 148, size: 9 },
 
       // Agencia checkboxes
-      agenciaGuayaquil: { x: 120, y: 580, size: 12 },
-      agenciaQuito: { x: 200, y: 580, size: 12 },
+      agenciaGuayaquil: { x: 264, y: 647, size: 12 },
+      agenciaQuito: { x: 264, y: 633, size: 12 },
 
       // Fondo checkboxes
-      fondoSmartOne: { x: 120, y: 565, size: 12 },
-      fondoAuranova: { x: 200, y: 565, size: 12 },
-      fondoImpulso: { x: 280, y: 565, size: 12 },
+      fondoSmartOne: { x: 379, y: 647, size: 12 },
+      fondoAuranova: { x: 412, y: 647, size: 12 },
+      fondoImpulso: { x: 506, y: 647, size: 12 },
       fondoQuito: { x: 350, y: 565, size: 12 },
       fondoAltoRendimiento: { x: 410, y: 565, size: 12 },
 
       // === SECCIÓN 2 ===
       // Ocupación checkboxes
-      ocupacionDependiente: { x: 150, y: 520, size: 12 },
-      ocupacionIndependiente: { x: 230, y: 520, size: 12 },
-      ocupacionAmaCasa: { x: 310, y: 520, size: 12 },
-      ocupacionJubilacion: { x: 380, y: 520, size: 12 },
-      ocupacionEstudiante: { x: 440, y: 520, size: 12 },
-      ocupacionEmprendedor: { x: 150, y: 505, size: 12 },
+      ocupacionDependiente: { x: 95, y: 581, size: 12 },
+      ocupacionIndependiente: { x: 264, y: 581, size: 12 },
+      ocupacionAmaCasa: { x: 379, y: 581, size: 12 },
+      ocupacionJubilacion: { x: 329, y: 581, size: 12 },
+      ocupacionEstudiante: { x: 412, y: 581, size: 12 },
+      ocupacionEmprendedor: { x: 459, y: 581, size: 12 },
 
       // Cargo checkboxes
-      cargoPublico: { x: 230, y: 505, size: 12 },
-      cargoPrivado: { x: 310, y: 505, size: 12 },
-      cargoCasan: { x: 380, y: 505, size: 12 },
+      cargoPublico: { x: 160, y: 581, size: 12 },
+      cargoPrivado: { x: 207, y: 581, size: 12 },
+      cargoCasan: { x: 506, y: 581, size: 12 },
 
       // Datos laborales
-      nombreCompania: { x: 180, y: 490, maxW: 250, size: 10 },
-      cargo: { x: 180, y: 475, maxW: 200, size: 10 },
-      actividadEconomica: { x: 180, y: 460, maxW: 300, size: 9 },
-      direccionLaboral: { x: 180, y: 445, maxW: 300, size: 10 },
-      ciudadLaboral: { x: 180, y: 430, maxW: 150, size: 10 },
-      telefonoLaboral: { x: 180, y: 415, maxW: 150, size: 10 },
-      emailLaboral: { x: 180, y: 400, maxW: 250, size: 9 },
+      nombreCompania: { x: 200, y: 568, maxW: 300, size: 9 },
+      cargo: { x: 105, y: 553, maxW: 160, size: 9 },
+      actividadEconomica: { x: 370, y: 549, maxW: 145, size: 8 },
+      direccionLaboral: { x: 130, y: 537, maxW: 180, size: 9 },
+      ciudadLaboral: { x: 370, y: 536, maxW: 140, size: 9 },
+      telefonoLaboral: { x: 130, y: 523, maxW: 140, size: 9 },
+      emailLaboral: { x: 370, y: 523, maxW: 140, size: 9 },
 
       // === SECCIÓN 3 ===
       representanteNombre: { x: 180, y: 370, maxW: 250, size: 10 },
