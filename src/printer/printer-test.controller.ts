@@ -350,16 +350,16 @@ async generateConozcaClienteTestPdf(
     emailLaboral: data?.emailLaboral || 'juan.perez@empresa.com',
 
     // SECCIÓN 3
-    representanteNombre: data?.representanteNombre || '',
-    representanteIdentificacion: data?.representanteIdentificacion || '',
-    representanteDireccion: data?.representanteDireccion || '',
-    representanteNacionalidad: data?.representanteNacionalidad || '',
-    representanteEmail: data?.representanteEmail || '',
-    representanteTelefono: data?.representanteTelefono || '',
+    representanteNombre: data?.representanteNombre || 'Juan Ignacio Vásquez López',
+    representanteIdentificacion: data?.representanteIdentificacion || '1718975252',
+    representanteDireccion: data?.representanteDireccion || 'Av. Secundaria 456 y Calle Terciaria',
+    representanteNacionalidad: data?.representanteNacionalidad || 'Ecuatoriana',
+    representanteEmail: data?.representanteEmail || 'email@dominio.com',
+    representanteTelefono: data?.representanteTelefono || '0991234568',
 
     // SECCIÓN 4
     conyugeNombre: data?.conyugeNombre || 'MARÍA FERNANDA LÓPEZ DE PÉREZ',
-    conyugeIdentificacion: data?.conyugeIdentificacion || '0912345679',
+    conyugeIdentificacion: data?.conyugeIdentificacion || '1718975253',
     conyugeNacionalidad: data?.conyugeNacionalidad || 'Ecuatoriana',
     conyugeGenero: data?.conyugeGenero || 'femenino',
     conyugeEstadoCivil: data?.conyugeEstadoCivil || 'casado',
@@ -374,7 +374,7 @@ async generateConozcaClienteTestPdf(
     
     ingresosSalario: data?.ingresosSalario || '3000.00',
     ingresosHonorarios: data?.ingresosHonorarios || '500.00',
-    ingresosNegocioPropio: data?.ingresosNegocioPropio || '',
+    ingresosNegocioPropio: data?.ingresosNegocioPropio || '400.00',
     ingresosOtros: data?.ingresosOtros || '200.00',
     ingresosEspecifiqueOtros: data?.ingresosEspecifiqueOtros || 'Dividendos',
     totalIngresos: data?.totalIngresos || '3700.00',
@@ -391,7 +391,7 @@ async generateConozcaClienteTestPdf(
     activosCuentaPorCobrar: data?.activosCuentaPorCobrar || '1000.00',
     activosInversiones: data?.activosInversiones || '5000.00',
     activosAcciones: data?.activosAcciones || '2000.00',
-    activosDerechosFiduciarios: data?.activosDerechosFiduciarios || '',
+    activosDerechosFiduciarios: data?.activosDerechosFiduciarios || '1500.00',
     activosOtros: data?.activosOtros || '3000.00',
     activosEspecifiqueOtros: data?.activosEspecifiqueOtros || 'Ahorros',
     totalActivos: data?.totalActivos || '26000.00',
