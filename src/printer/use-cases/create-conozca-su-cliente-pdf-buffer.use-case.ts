@@ -681,7 +681,7 @@ export class CreateConozcaSuClientePdfBufferUseCase {
         color,
       );
     }
-    if (ocupacion.includes('jubilacion') || ocupacion.includes('jubilado')) {
+    if (ocupacion.includes('jubilacion') || ocupacion.includes('jubilad')) {
       this.drawText(
         page,
         'X',
