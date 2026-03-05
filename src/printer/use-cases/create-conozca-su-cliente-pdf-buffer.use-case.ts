@@ -114,6 +114,9 @@ export interface ConozcaSuClientePNData {
   // === SECCIÓN 6: REFERENCIAS BANCARIAS ===
   referenciasBancarias?: ReferenciaBancaria[];
 
+  // === SECCIÓN 7: REFERENCIAS COMERCIALES Y PERSONALES ===
+  referenciasComerciales?: ReferenciaComercial[];
+
   // === SECCIÓN 8: DECLARACIÓN PEP ===
   // === SECCIÓN 8.1 — Cargo público ===
   esPEP?: string;
@@ -167,6 +170,12 @@ export interface BeneficiarioFinal {
   nacionalidad?: string;
   paisResidencia?: string;
   parentesco?: string;
+  telefono?: string;
+}
+
+export interface ReferenciaComercial {
+  nombreRazonSocial?: string;
+  personaContacto?: string;
   telefono?: string;
 }
 
@@ -301,6 +310,9 @@ export class CreateConozcaSuClientePdfBufferUseCase {
       // SECCIÓN 6
       referenciasBancarias: i.referenciasBancarias,
 
+      // SECCIÓN 7
+      referenciasComerciales: i.referenciasComerciales,
+
       // SECCIÓN 8
       esPEP: this.toStr(i.esPEP).toLowerCase(),
       pepCargo: this.toStr(i.pepCargo),
@@ -396,8 +408,8 @@ export class CreateConozcaSuClientePdfBufferUseCase {
       ocupacionEmprendedor: { x: 459, y: 581, size: 12 },
 
       // Cargo checkboxes
-      cargoPublico: { x: 160, y: 581, size: 12 },
-      cargoPrivado: { x: 207, y: 581, size: 12 },
+      cargoPublico: { x: 160, y: 582, size: 10 },
+      cargoPrivado: { x: 264, y: 582, size: 10 },
       cargoCasan: { x: 506, y: 581, size: 12 },
 
       // Datos laborales
@@ -469,6 +481,11 @@ export class CreateConozcaSuClientePdfBufferUseCase {
       pasivosPrestamos: { x: 380, y: 245, maxW: 75, size: 6 },
       pasivosOtros: { x: 380, y: 210, maxW: 75, size: 6 },
       totalPasivos: { x: 380, y: 180, maxW: 100, size: 6 },
+
+      // === SECCIÓN 7 ===
+      refComercial1Nombre:   { x: 80,  y: 28, maxW: 240, size: 9 },
+      refComercial1Contacto: { x: 300, y: 28, maxW: 130, size: 9 },
+      refComercial1Telefono: { x: 440, y: 28, maxW: 110, size: 9 },
 
     };
     // === SECCIÓN 5 ===
@@ -1073,6 +1090,14 @@ export class CreateConozcaSuClientePdfBufferUseCase {
       this.drawText(page, ref.tipoCuenta ?? '', { ...pos.tipoCuenta, font }, color);
       this.drawText(page, ref.numeroCuenta ?? '', { ...pos.numero, font }, color);
     });
+
+    // === SECCIÓN 7 — fila 1 ===
+    const refsComerciales = (data.referenciasComerciales ?? []).slice(0, 2);
+    if (refsComerciales[0]) {
+      this.drawText(page, refsComerciales[0].nombreRazonSocial ?? '', { ...POS.refComercial1Nombre,   font }, color);
+      this.drawText(page, refsComerciales[0].personaContacto ?? '',   { ...POS.refComercial1Contacto, font }, color);
+      this.drawText(page, refsComerciales[0].telefono ?? '',          { ...POS.refComercial1Telefono, font }, color);
+    }
   }
 
   private async fillPagina2(
@@ -1084,7 +1109,13 @@ export class CreateConozcaSuClientePdfBufferUseCase {
     const color = rgb(0, 0, 0);
 
     const POS = {
-       // === SECCIÓN 8.1 ===
+      
+      // === SECCIÓN 7 ===
+      refComercial2Nombre:   { x: 80,  y: 805, maxW: 240, size: 9 },
+      refComercial2Contacto: { x: 300, y: 805, maxW: 130, size: 9 },
+      refComercial2Telefono: { x: 440, y: 805, maxW: 110, size: 9 },
+      
+      // === SECCIÓN 8.1 ===
       pepSi:           { x: 274, y: 771, size: 10 },
       pepNo:           { x: 292, y: 771, size: 10 },
       pepCargo:        { x: 160, y: 750, maxW: 155, size: 9 },
@@ -1121,6 +1152,21 @@ export class CreateConozcaSuClientePdfBufferUseCase {
       fondoTelefono: { x: 370, y: 581, maxW: 130, size: 9 },
       fondoDireccion: { x: 155, y: 567, maxW: 130, size: 9 },
       fondoActividad: { x: 400, y: 567, maxW: 148, size: 9 },
+
+      // === SECCIÓN 12 ===
+      doc12RUC:              { x: 490, y: 137, size: 8 },
+      doc12CertResidencia:   { x: 490, y: 127, size: 8 },
+      doc12Cedula:           { x: 490, y: 117, size: 8 },
+      doc12RolJubilacion:    { x: 490, y: 108, size: 8 },
+      doc12CertLaboral:      { x: 490, y: 98,  size: 8 },
+      doc12Planilla:         { x: 490, y: 88,  size: 8 },
+      doc12Representante:    { x: 490, y: 78,  size: 8 },
+      doc12IVA:              { x: 490, y: 68,  size: 8 },
+      doc12Renta:            { x: 490, y: 58,  size: 8 },
+      doc12EstadosFinanc:    { x: 490, y: 49,  size: 8 },
+      doc12RefComercial:     { x: 490, y: 39,  size: 8 },
+      doc12RefBancaria:      { x: 490, y: 29,  size: 8 },
+
     };
 
     // === SECCIÓN 10  ===
@@ -1143,7 +1189,16 @@ export class CreateConozcaSuClientePdfBufferUseCase {
         parentesco: { x: 435, y: 505, maxW: 46, size: 8 },
         telefono: { x: 475, y: 505, maxW: 65, size: 7 },
       },
+
     ];
+
+    // === SECCIÓN 7 — fila 2 ===
+    const refsComerciales = (data.referenciasComerciales ?? []).slice(0, 2);
+    if (refsComerciales[1]) {
+      this.drawText(page, refsComerciales[1].nombreRazonSocial ?? '', { ...POS.refComercial2Nombre,   font }, color);
+      this.drawText(page, refsComerciales[1].personaContacto ?? '',   { ...POS.refComercial2Contacto, font }, color);
+      this.drawText(page, refsComerciales[1].telefono ?? '',          { ...POS.refComercial2Telefono, font }, color);
+    }
 
     // === SECCIÓN 8.1 ===
     const esPEP = data.esPEP || '';
@@ -1263,6 +1318,20 @@ export class CreateConozcaSuClientePdfBufferUseCase {
       this.drawText(page, ben.parentesco ?? '',              { ...pos.parentesco,     font }, color);
       this.drawText(page, ben.telefono ?? '',                { ...pos.telefono,       font }, color);
     });
+
+    // === SECCIÓN 12 ===
+    this.drawText(page, 'X', { ...POS.doc12RUC,            font: fontBold }, color);
+    this.drawText(page, 'X', { ...POS.doc12CertResidencia, font: fontBold }, color);
+    this.drawText(page, 'X', { ...POS.doc12Cedula,         font: fontBold }, color);
+    this.drawText(page, 'X', { ...POS.doc12RolJubilacion,  font: fontBold }, color);
+    this.drawText(page, 'X', { ...POS.doc12CertLaboral,    font: fontBold }, color);
+    this.drawText(page, 'X', { ...POS.doc12Planilla,       font: fontBold }, color);
+    this.drawText(page, 'X', { ...POS.doc12Representante,  font: fontBold }, color);
+    this.drawText(page, 'X', { ...POS.doc12IVA,            font: fontBold }, color);
+    this.drawText(page, 'X', { ...POS.doc12Renta,          font: fontBold }, color);
+    this.drawText(page, 'X', { ...POS.doc12EstadosFinanc,  font: fontBold }, color);
+    this.drawText(page, 'X', { ...POS.doc12RefComercial,   font: fontBold }, color);
+    this.drawText(page, 'X', { ...POS.doc12RefBancaria,    font: fontBold }, color);
   }
   private drawText(
     page: PDFPage,
@@ -1291,4 +1360,5 @@ export class CreateConozcaSuClientePdfBufferUseCase {
       color,
     });
   }
+  
 }

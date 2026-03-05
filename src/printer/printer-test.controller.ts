@@ -201,6 +201,9 @@ export class TestConozcaSuClientePNDto {
   // === SECCIÓN 6: REFERENCIAS BANCARIAS ===
   referenciasBancarias?: ReferenciaBancariaDto[];
 
+  // === SECCIÓN 7: REFERENCIAS COMERCIALES Y PERSONALES ===
+  referenciasComerciales?: ReferenciaComercialDto[];
+
   // === SECCIÓN 8.1 — Cargo público ===
   esPEP?: string;
   pepCargo?: string;
@@ -233,6 +236,12 @@ export class ReferenciaBancariaDto {
   nombreIdentificacion?: string;
   tipoCuenta?: string; // "ahorros", "corriente"
   numeroCuenta?: string;
+}
+
+export class ReferenciaComercialDto {
+  nombreRazonSocial?: string;
+  personaContacto?: string;
+  telefono?: string;
 }
 
 export class FondoTerceroDto {
@@ -343,7 +352,6 @@ async generateConozcaClienteTestPdf(
     fondo: data?.fondo || 'smart-one',
 
     // SECCIÓN 2
-    ocupacion: data?.ocupacion || 'dependiente',
     cargoTipo: data?.cargoTipo || 'privado',
     nombreCompania: data?.nombreCompania || 'Empresa XYZ S.A.',
     cargo: data?.cargo || 'Gerente Financiero',
@@ -423,6 +431,20 @@ async generateConozcaClienteTestPdf(
     numeroCuenta: '1122334455',
   },
 ],
+
+    // SECCIÓN 7
+    referenciasComerciales: data?.referenciasComerciales || [
+      {
+        nombreRazonSocial: 'Empresa ABC S.A.',
+        personaContacto: 'Roberto Gómez',
+        telefono: '0991234560',
+      },
+      {
+        nombreRazonSocial: 'Comercial XYZ',
+        personaContacto: 'Laura Martínez',
+        telefono: '0987654320',
+      },
+    ],
 
     // SECCIÓN 8
     esPEP: data?.esPEP || 'si',
