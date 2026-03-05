@@ -115,35 +115,26 @@ export interface ConozcaSuClientePNData {
   referenciasBancarias?: ReferenciaBancaria[];
 
   // === SECCIÓN 8: DECLARACIÓN PEP ===
-  // 8.1 Persona expuesta políticamente
-  esPEP?: string; // "si", "no"
+  // === SECCIÓN 8.1 — Cargo público ===
+  esPEP?: string;
+  pepCargo?: string;
+  pepFuncionesSI?: string;
+  pepInstitucion?: string;
+  pepFechaCulminacion?: string;
+  pepDireccion?: string;
+  pepTelefono?: string;
 
-  datosPEP?: {
-    pais?: string; // "CAMPOS considerados destacados dentro o fuera" - probablemente País
-    siNo?: string; // "si", "no" adicional
-    institucion?: string;
-    fechaCumplimiento?: string; // "RICHA DE CUMPLICACIÓN DEL CAMPO" - Fecha
-    direccion?: string;
-    telefono?: string;
-  };
+  // === SECCIÓN 8.2 — Familiar de PEP ===
+  esFamiliarPEP?: string;
+  familiarPEPNombres?: string;
+  familiarPEPParentesco?: string;
+  familiarPEPCargo?: string;
 
-  // 8.2 Familiar de PEP
-  esFamiliarPEP?: string; // "si", "no"
-
-  familiarPEP?: {
-    nombres?: string;
-    parentesco?: string;
-    campoPEP?: string; // "CAMPO DEL PEP"
-  };
-
-  // 8.3 Relación con PEP
-  tieneRelacionPEP?: string; // "si", "no"
-
-  tipoRelacionPEP?: string; // Para detectar: "comercial", "contractual", "laboral", "asociado"
-
-  relacionPEP?: {
-    nombres?: string;
-  };
+  // === SECCIÓN 8.3 — Relación con PEP ===
+  tieneRelacionPEP?: string;
+  tipoRelacionPEP?: string;
+  relacionPEPNombres?: string;
+  relacionPEPCargo?: string;
 
   // === SECCIÓN 9: FONDOS PROVENIENTES DE TERCEROS ===
   fondosTerceros?: FondoTercero[];
@@ -312,12 +303,20 @@ export class CreateConozcaSuClientePdfBufferUseCase {
 
       // SECCIÓN 8
       esPEP: this.toStr(i.esPEP).toLowerCase(),
-      datosPEP: i.datosPEP,
+      pepCargo: this.toStr(i.pepCargo),
+      pepFuncionesSI: this.toStr(i.pepFuncionesSI).toLowerCase(),
+      pepInstitucion: this.toStr(i.pepInstitucion),
+      pepFechaCulminacion: this.toStr(i.pepFechaCulminacion),
+      pepDireccion: this.toStr(i.pepDireccion),
+      pepTelefono: this.toStr(i.pepTelefono),
       esFamiliarPEP: this.toStr(i.esFamiliarPEP).toLowerCase(),
-      familiarPEP: i.familiarPEP,
+      familiarPEPNombres: this.toStr(i.familiarPEPNombres),
+      familiarPEPParentesco: this.toStr(i.familiarPEPParentesco),
+      familiarPEPCargo: this.toStr(i.familiarPEPCargo),
       tieneRelacionPEP: this.toStr(i.tieneRelacionPEP).toLowerCase(),
       tipoRelacionPEP: this.toStr(i.tipoRelacionPEP).toLowerCase(),
-      relacionPEP: i.relacionPEP,
+      relacionPEPNombres: this.toStr(i.relacionPEPNombres),
+      relacionPEPCargo: this.toStr(i.relacionPEPCargo),
 
       // SECCIÓN 9
       fondosTerceros: i.fondosTerceros,
@@ -443,7 +442,7 @@ export class CreateConozcaSuClientePdfBufferUseCase {
       ingresosHonorarios: { x: 120, y: 262, maxW: 75, size: 8 },
       ingresosNegocioPropio: { x: 120, y: 240, maxW: 75, size: 8 },
       ingresosOtros: { x: 120, y: 209, maxW: 75, size: 8 },
-      ingresosEspecifiqueOtros: { x: 415, y: 188, maxW: 100, size: 7 },
+      ingresosEspecifiqueOtros: { x: 470, y: 195, maxW: 100, size: 7 },
       totalIngresos: { x: 120, y: 180, maxW: 75, size: 8 },
 
       // Gastos (columna aproximadamente x: 200)
@@ -452,33 +451,44 @@ export class CreateConozcaSuClientePdfBufferUseCase {
       gastosSalud: { x: 202, y: 247, maxW: 75, size: 8 },
       gastosVivienda: { x: 202, y: 232, maxW: 75, size: 8 },
       gastosOtros: { x: 202, y: 210, maxW: 75, size: 8 },
-      gastosEspecifiqueOtros: { x: 445, y: 256, maxW: 100, size: 7 },
+      gastosEspecifiqueOtros: { x: 456, y: 260, maxW: 100, size: 5 },
       totalGastos: { x: 202, y: 180, maxW: 75, size: 8 },
 
       // Activos (columna aproximadamente x: 300)
-      activosVehiculo: { x: 300, y: 80, maxW: 80, size: 9 },
-      activosCuentaPorCobrar: { x: 300, y: 65, maxW: 80, size: 9 },
-      activosInversiones: { x: 300, y: 50, maxW: 80, size: 9 },
-      activosAcciones: { x: 300, y: 35, maxW: 80, size: 9 },
-      activosDerechosFiduciarios: { x: 300, y: 20, maxW: 80, size: 9 },
-      activosOtros: { x: 300, y: 5, maxW: 80, size: 9 },
-      activosEspecifiqueOtros: { x: 300, y: -10, maxW: 150, size: 8 },
-      totalActivos: { x: 300, y: -25, maxW: 80, size: 9 },
+      activosVehiculo: { x: 295, y: 285, maxW: 75, size: 6 },
+      activosCuentaPorCobrar: { x: 295, y: 275, maxW: 75, size: 6 },
+      activosInversiones: { x: 295, y: 265, maxW: 75, size: 6 },
+      activosAcciones: { x: 295, y: 250, maxW: 75, size: 6 },
+      activosDerechosFiduciarios: { x: 295, y: 235, maxW: 75, size: 6 },
+      activosOtros: { x: 295, y: 215, maxW: 75, size: 6 },
+      activosEspecifiqueOtros: { x: 295, y: 198, maxW: 100, size: 6 },
+      totalActivos: { x: 295, y: 180, maxW: 100, size: 6 },
 
       // Pasivos (columna aproximadamente x: 400)
-      pasivosDeudas: { x: 400, y: 80, maxW: 80, size: 9 },
-      pasivosPrestamos: { x: 400, y: 65, maxW: 80, size: 9 },
-      pasivosOtros: { x: 400, y: 50, maxW: 80, size: 9 },
-      pasivosEspecifiqueOtros: { x: 400, y: 35, maxW: 150, size: 8 },
-      totalPasivos: { x: 400, y: 20, maxW: 80, size: 9 },
+      pasivosDeudas: { x: 380, y: 275, maxW: 100, size: 6 },
+      pasivosPrestamos: { x: 380, y: 245, maxW: 75, size: 6 },
+      pasivosOtros: { x: 380, y: 210, maxW: 75, size: 6 },
+      totalPasivos: { x: 380, y: 180, maxW: 100, size: 6 },
 
-      // === SECCIÓN 6 ===
-      // Nota: Las referencias bancarias son múltiples, habría que iterar
-      // Por simplicidad, pondré una posición para la primera
-      referenciaBanco1: { x: 100, y: -40, maxW: 100, size: 9 },
-      referenciaTipoCuenta1: { x: 220, y: -40, maxW: 80, size: 9 },
-      referenciaNumeroCuenta1: { x: 320, y: -40, maxW: 120, size: 9 },
     };
+    // === SECCIÓN 5 ===
+    const REF_POSITIONS = [
+      {
+        banco: { x: 80, y: 120, maxW: 220, size: 9 },
+        tipoCuenta: { x: 310, y: 120, maxW: 80, size: 9 },
+        numero: { x: 395, y: 120, maxW: 160, size: 9 },
+      },
+      {
+        banco: { x: 80, y: 105, maxW: 220, size: 9 },
+        tipoCuenta: { x: 310, y: 105, maxW: 80, size: 9 },
+        numero: { x: 395, y: 105, maxW: 160, size: 9 },
+      },
+      {
+        banco: { x: 80, y: 90, maxW: 220, size: 9 },
+        tipoCuenta: { x: 310, y: 90, maxW: 80, size: 9 },
+        numero: { x: 395, y: 90, maxW: 160, size: 9 },
+      },
+    ];
 
     // === SECCIÓN 1 ===
     this.drawText(
@@ -1050,41 +1060,19 @@ export class CreateConozcaSuClientePdfBufferUseCase {
     );
     this.drawText(
       page,
-      data.pasivosEspecifiqueOtros || "",
-      { ...POS.pasivosEspecifiqueOtros, font },
-      color,
-    );
-    this.drawText(
-      page,
       data.totalPasivos || "",
       { ...POS.totalPasivos, font: fontBold },
       color,
     );
 
     // === SECCIÓN 6 ===
-    if (data.referenciasBancarias && data.referenciasBancarias.length > 0) {
-      const ref = data.referenciasBancarias[0];
-      this.drawText(
-        page,
-        ref.nombreIdentificacion || "",
-        { ...POS.referenciaBanco1, font },
-        color,
-      );
-
-      const tipoCuenta = (ref.tipoCuenta || '').toLowerCase();
-      if (tipoCuenta.includes('ahorro')) {
-        // Marcar checkbox de ahorros si existe
-      } else if (tipoCuenta.includes('corriente')) {
-        // Marcar checkbox de corriente
-      }
-
-      this.drawText(
-        page,
-        ref.numeroCuenta || "",
-        { ...POS.referenciaNumeroCuenta1, font },
-        color,
-      );
-    }
+    const refs = (data.referenciasBancarias ?? []).slice(0, 3);
+    refs.forEach((ref, i) => {
+      const pos = REF_POSITIONS[i];
+      this.drawText(page, ref.nombreIdentificacion ?? '', { ...pos.banco, font }, color);
+      this.drawText(page, ref.tipoCuenta ?? '', { ...pos.tipoCuenta, font }, color);
+      this.drawText(page, ref.numeroCuenta ?? '', { ...pos.numero, font }, color);
+    });
   }
 
   private async fillPagina2(
@@ -1096,54 +1084,66 @@ export class CreateConozcaSuClientePdfBufferUseCase {
     const color = rgb(0, 0, 0);
 
     const POS = {
-      // === SECCIÓN 8.1 ===
-      pepSi: { x: 200, y: 750, size: 12 },
-      pepNo: { x: 250, y: 750, size: 12 },
-
-      pepPais: { x: 150, y: 730, maxW: 100, size: 10 },
-      pepInstitucion: { x: 280, y: 730, maxW: 150, size: 10 },
-      pepFecha: { x: 150, y: 715, maxW: 80, size: 10 },
-      pepDireccion: { x: 280, y: 715, maxW: 150, size: 10 },
-      pepTelefono: { x: 150, y: 700, maxW: 100, size: 10 },
+       // === SECCIÓN 8.1 ===
+      pepSi:           { x: 274, y: 771, size: 10 },
+      pepNo:           { x: 292, y: 771, size: 10 },
+      pepCargo:        { x: 160, y: 750, maxW: 155, size: 9 },
+      pepFuncionesSI:  { x: 460, y: 754, size: 10 },
+      pepFuncionesNO:  { x: 484, y: 754, size: 10 },
+      pepInstitucion:  { x: 155, y: 737, maxW: 130, size: 9 },
+      pepFecha:        { x: 370, y: 737, maxW: 140, size: 9 },
+      pepDireccion:    { x: 155, y: 723, maxW: 130, size: 9 },
+      pepTelefono:     { x: 370, y: 723, maxW: 140, size: 9 },
 
       // === SECCIÓN 8.2 ===
-      familiarPepSi: { x: 200, y: 660, size: 12 },
-      familiarPepNo: { x: 250, y: 660, size: 12 },
-
-      familiarPepNombres: { x: 150, y: 640, maxW: 200, size: 10 },
-      familiarPepParentesco: { x: 150, y: 625, maxW: 150, size: 10 },
-      familiarPepCampo: { x: 150, y: 610, maxW: 150, size: 10 },
+      familiarPepSi:        { x: 203, y: 709, size: 10 },
+      familiarPepNo:        { x: 220, y: 709, size: 10 },
+      familiarPepNombres:   { x: 230, y: 690, maxW: 200, size: 9 },
+      familiarPepParentesco:{ x: 155, y: 678, maxW: 130, size: 9 },
+      familiarPepCargo:     { x: 370, y: 678, maxW: 130, size: 9 },
 
       // === SECCIÓN 8.3 ===
-      relacionPepSi: { x: 200, y: 580, size: 12 },
-      relacionPepNo: { x: 250, y: 580, size: 12 },
-
-      relacionPepComercial: { x: 280, y: 560, size: 12 },
-      relacionPepContractual: { x: 350, y: 560, size: 12 },
-      relacionPepLaboral: { x: 420, y: 560, size: 12 },
-      relacionPepAsociado: { x: 480, y: 560, size: 12 },
-
-      relacionPepNombres: { x: 150, y: 540, maxW: 200, size: 10 },
+      relacionPepSi:         { x: 184, y: 666, size: 8 },
+      relacionPepNo:         { x: 199, y: 666, size: 8 },
+      relacionPepComercial:  { x: 263, y: 666, size: 8 },
+      relacionPepContractual:{ x: 295, y: 666, size: 8 },
+      relacionPepLaboral:    { x: 318, y: 666, size: 8 },
+      relacionPepOtra:       { x: 420, y: 666, size: 8 },
+      relacionPepNombres:    { x: 160, y: 645, maxW: 200, size: 9 },
+      relacionPepCargo:      { x: 380, y: 645, maxW: 130, size: 9 },
 
       // === SECCIÓN 9 ===
-      fondoNombres: { x: 100, y: 490, maxW: 150, size: 9 },
-      fondoIdentificacion: { x: 250, y: 490, maxW: 120, size: 9 },
-      fondoNacionalidad: { x: 370, y: 490, maxW: 100, size: 9 },
-      fondoPais: { x: 100, y: 475, maxW: 100, size: 9 },
-      fondoProfesion: { x: 200, y: 475, maxW: 100, size: 9 },
-      fondoTelefono: { x: 300, y: 475, maxW: 80, size: 9 },
-      fondoDireccion: { x: 380, y: 475, maxW: 120, size: 9 },
-      fondoActividad: { x: 100, y: 460, maxW: 200, size: 9 },
-
-      // === SECCIÓN 10 ===
-      benNombres: { x: 100, y: 420, maxW: 150, size: 9 },
-      benPorcentaje: { x: 250, y: 420, maxW: 50, size: 9 },
-      benIdentificacion: { x: 300, y: 420, maxW: 120, size: 9 },
-      benNacionalidad: { x: 420, y: 420, maxW: 100, size: 9 },
-      benPais: { x: 100, y: 405, maxW: 100, size: 9 },
-      benParentesco: { x: 200, y: 405, maxW: 100, size: 9 },
-      benTelefono: { x: 300, y: 405, maxW: 80, size: 9 },
+      fondoNombres: { x: 155, y: 610, maxW: 130, size: 9 },
+      fondoIdentificacion: { x: 370, y: 610, maxW: 148, size: 9 },
+      fondoNacionalidad: { x: 155, y: 595, maxW: 130, size: 9 },
+      fondoPais: { x: 370, y: 595, maxW: 130, size: 9 },
+      fondoProfesion: { x: 155, y: 581, maxW: 130, size: 9 },
+      fondoTelefono: { x: 370, y: 581, maxW: 130, size: 9 },
+      fondoDireccion: { x: 155, y: 567, maxW: 130, size: 9 },
+      fondoActividad: { x: 400, y: 567, maxW: 148, size: 9 },
     };
+
+    // === SECCIÓN 10  ===
+    const BEN_POSITIONS = [
+      {
+        nombres: { x: 93, y: 519, maxW: 70, size: 8 },
+        porcentaje: { x: 180, y: 519, maxW: 35, size: 8 },
+        identificacion: { x: 240, y: 519, maxW: 70, size: 8 },
+        nacionalidad: { x: 315, y: 519, maxW: 57, size: 8 },
+        pais: { x: 380, y: 519, maxW: 50, size: 8 },
+        parentesco: { x: 435, y: 519, maxW: 46, size: 8 },
+        telefono: { x: 475, y: 519, maxW: 65, size: 7 },
+      },
+      {
+        nombres: { x: 93, y: 505, maxW: 70, size: 8 },
+        porcentaje: { x: 180, y: 505, maxW: 35, size: 8 },
+        identificacion: { x: 240, y: 505, maxW: 70, size: 8 },
+        nacionalidad: { x: 315, y: 505, maxW: 57, size: 8 },
+        pais: { x: 380, y: 505, maxW: 50, size: 8 },
+        parentesco: { x: 435, y: 505, maxW: 46, size: 8 },
+        telefono: { x: 475, y: 505, maxW: 65, size: 7 },
+      },
+    ];
 
     // === SECCIÓN 8.1 ===
     const esPEP = data.esPEP || '';
@@ -1152,34 +1152,17 @@ export class CreateConozcaSuClientePdfBufferUseCase {
     } else if (esPEP.includes('no')) {
       this.drawText(page, 'X', { ...POS.pepNo, font: fontBold }, color);
     }
-
-    if (data.datosPEP) {
-      this.drawText(page, data.datosPEP.pais || "", { ...POS.pepPais, font }, color);
-      this.drawText(
-        page,
-        data.datosPEP.institucion || "",
-        { ...POS.pepInstitucion, font },
-        color,
-      );
-      this.drawText(
-        page,
-        data.datosPEP.fechaCumplimiento || "",
-        { ...POS.pepFecha, font },
-        color,
-      );
-      this.drawText(
-        page,
-        data.datosPEP.direccion || "",
-        { ...POS.pepDireccion, font },
-        color,
-      );
-      this.drawText(
-        page,
-        data.datosPEP.telefono || "",
-        { ...POS.pepTelefono, font },
-        color,
-      );
+    this.drawText(page, data.pepCargo || '',         { ...POS.pepCargo,       font }, color);
+    const pepFunc = data.pepFuncionesSI || '';
+    if (pepFunc.includes('si')) {
+      this.drawText(page, 'X', { ...POS.pepFuncionesSI, font: fontBold }, color);
+    } else if (pepFunc.includes('no')) {
+      this.drawText(page, 'X', { ...POS.pepFuncionesNO, font: fontBold }, color);
     }
+    this.drawText(page, data.pepInstitucion || '',      { ...POS.pepInstitucion, font }, color);
+    this.drawText(page, data.pepFechaCulminacion || '', { ...POS.pepFecha,       font }, color);
+    this.drawText(page, data.pepDireccion || '',        { ...POS.pepDireccion,   font }, color);
+    this.drawText(page, data.pepTelefono || '',         { ...POS.pepTelefono,    font }, color);
 
     // === SECCIÓN 8.2 ===
     const esFamiliarPEP = data.esFamiliarPEP || '';
@@ -1188,27 +1171,9 @@ export class CreateConozcaSuClientePdfBufferUseCase {
     } else if (esFamiliarPEP.includes('no')) {
       this.drawText(page, 'X', { ...POS.familiarPepNo, font: fontBold }, color);
     }
-
-    if (data.familiarPEP) {
-      this.drawText(
-        page,
-        data.familiarPEP.nombres || "",
-        { ...POS.familiarPepNombres, font },
-        color,
-      );
-      this.drawText(
-        page,
-        data.familiarPEP.parentesco || "",
-        { ...POS.familiarPepParentesco, font },
-        color,
-      );
-      this.drawText(
-        page,
-        data.familiarPEP.campoPEP || "",
-        { ...POS.familiarPepCampo, font },
-        color,
-      );
-    }
+    this.drawText(page, data.familiarPEPNombres || '',   { ...POS.familiarPepNombres,    font }, color);
+    this.drawText(page, data.familiarPEPParentesco || '', { ...POS.familiarPepParentesco, font }, color);
+    this.drawText(page, data.familiarPEPCargo || '',     { ...POS.familiarPepCargo,      font }, color);
 
     // === SECCIÓN 8.3 ===
     const tieneRelacionPEP = data.tieneRelacionPEP || '';
@@ -1217,49 +1182,21 @@ export class CreateConozcaSuClientePdfBufferUseCase {
     } else if (tieneRelacionPEP.includes('no')) {
       this.drawText(page, 'X', { ...POS.relacionPepNo, font: fontBold }, color);
     }
-
     const tipoRelacion = data.tipoRelacionPEP || '';
     if (tipoRelacion.includes('comercial')) {
-      this.drawText(
-        page,
-        'X',
-        { ...POS.relacionPepComercial, font: fontBold },
-        color,
-      );
+      this.drawText(page, 'X', { ...POS.relacionPepComercial,   font: fontBold }, color);
     }
     if (tipoRelacion.includes('contractual')) {
-      this.drawText(
-        page,
-        'X',
-        { ...POS.relacionPepContractual, font: fontBold },
-        color,
-      );
+      this.drawText(page, 'X', { ...POS.relacionPepContractual, font: fontBold }, color);
     }
     if (tipoRelacion.includes('laboral')) {
-      this.drawText(
-        page,
-        'X',
-        { ...POS.relacionPepLaboral, font: fontBold },
-        color,
-      );
+      this.drawText(page, 'X', { ...POS.relacionPepLaboral,     font: fontBold }, color);
     }
-    if (tipoRelacion.includes('asociado')) {
-      this.drawText(
-        page,
-        'X',
-        { ...POS.relacionPepAsociado, font: fontBold },
-        color,
-      );
+    if (tipoRelacion.includes('otra')) {
+      this.drawText(page, 'X', { ...POS.relacionPepOtra,        font: fontBold }, color);
     }
-
-    if (data.relacionPEP) {
-      this.drawText(
-        page,
-        data.relacionPEP.nombres || "",
-        { ...POS.relacionPepNombres, font },
-        color,
-      );
-    }
+    this.drawText(page, data.relacionPEPNombres || '', { ...POS.relacionPepNombres, font }, color);
+    this.drawText(page, data.relacionPEPCargo || '',   { ...POS.relacionPepCargo,   font }, color);
 
     // === SECCIÓN 9 ===
     if (data.fondosTerceros && data.fondosTerceros.length > 0) {
@@ -1315,43 +1252,18 @@ export class CreateConozcaSuClientePdfBufferUseCase {
     }
 
     // === SECCIÓN 10 ===
-    if (data.beneficiariosFinales && data.beneficiariosFinales.length > 0) {
-      const ben = data.beneficiariosFinales[0];
-      this.drawText(
-        page,
-        ben.nombresCompletos || "",
-        { ...POS.benNombres, font },
-        color,
-      );
-      this.drawText(
-        page,
-        ben.porcentajeParticipacion || "",
-        { ...POS.benPorcentaje, font },
-        color,
-      );
-      this.drawText(
-        page,
-        ben.numeroIdentificacion || "",
-        { ...POS.benIdentificacion, font },
-        color,
-      );
-      this.drawText(
-        page,
-        ben.nacionalidad || "",
-        { ...POS.benNacionalidad, font },
-        color,
-      );
-      this.drawText(page, ben.paisResidencia || "", { ...POS.benPais, font }, color);
-      this.drawText(
-        page,
-        ben.parentesco || "",
-        { ...POS.benParentesco, font },
-        color,
-      );
-      this.drawText(page, ben.telefono || "", { ...POS.benTelefono, font }, color);
-    }
+    const bens = (data.beneficiariosFinales ?? []).slice(0, 2);
+    bens.forEach((ben, i) => {
+      const pos = BEN_POSITIONS[i];
+      this.drawText(page, ben.nombresCompletos ?? '',        { ...pos.nombres,        font }, color);
+      this.drawText(page, ben.porcentajeParticipacion ?? '', { ...pos.porcentaje,     font }, color);
+      this.drawText(page, ben.numeroIdentificacion ?? '',    { ...pos.identificacion, font }, color);
+      this.drawText(page, ben.nacionalidad ?? '',            { ...pos.nacionalidad,   font }, color);
+      this.drawText(page, ben.paisResidencia ?? '',          { ...pos.pais,           font }, color);
+      this.drawText(page, ben.parentesco ?? '',              { ...pos.parentesco,     font }, color);
+      this.drawText(page, ben.telefono ?? '',                { ...pos.telefono,       font }, color);
+    });
   }
-
   private drawText(
     page: PDFPage,
     text: string,

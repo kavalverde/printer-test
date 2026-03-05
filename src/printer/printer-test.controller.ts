@@ -201,22 +201,26 @@ export class TestConozcaSuClientePNDto {
   // === SECCIÓN 6: REFERENCIAS BANCARIAS ===
   referenciasBancarias?: ReferenciaBancariaDto[];
 
-  // === SECCIÓN 8: DECLARACIÓN PEP ===
-  esPEP?: string; // "si", "no"
-  pepPais?: string;
+  // === SECCIÓN 8.1 — Cargo público ===
+  esPEP?: string;
+  pepCargo?: string;
+  pepFuncionesSI?: string;
   pepInstitucion?: string;
-  pepFechaCumplimiento?: string;
+  pepFechaCulminacion?: string;
   pepDireccion?: string;
   pepTelefono?: string;
-  
-  esFamiliarPEP?: string; // "si", "no"
+
+  // === SECCIÓN 8.2 — Familiar de PEP ===
+  esFamiliarPEP?: string;
   familiarPEPNombres?: string;
   familiarPEPParentesco?: string;
-  familiarPEPCampo?: string;
-  
-  tieneRelacionPEP?: string; // "si", "no"
-  tipoRelacionPEP?: string; // "comercial", "contractual", "laboral", "asociado"
+  familiarPEPCargo?: string;
+
+  // === SECCIÓN 8.3 — Relación con PEP ===
+  tieneRelacionPEP?: string;
+  tipoRelacionPEP?: string;
   relacionPEPNombres?: string;
+  relacionPEPCargo?: string;
 
   // === SECCIÓN 9: FONDOS PROVENIENTES DE TERCEROS ===
   fondosTerceros?: FondoTerceroDto[];
@@ -399,48 +403,68 @@ async generateConozcaClienteTestPdf(
     pasivosDeudas: data?.pasivosDeudas || '5000.00',
     pasivosPrestamos: data?.pasivosPrestamos || '10000.00',
     pasivosOtros: data?.pasivosOtros || '1000.00',
-    pasivosEspecifiqueOtros: data?.pasivosEspecifiqueOtros || 'Tarjeta de crédito',
     totalPasivos: data?.totalPasivos || '16000.00',
 
     // SECCIÓN 6
     referenciasBancarias: data?.referenciasBancarias || [
-      {
-        nombreIdentificacion: 'Banco Pichincha',
-        tipoCuenta: 'ahorros',
-        numeroCuenta: '1234567890'
-      }
-    ],
+  {
+    nombreIdentificacion: 'Banco Pichincha',
+    tipoCuenta: 'ahorros',
+    numeroCuenta: '1234567890',
+  },
+  {
+    nombreIdentificacion: 'Banco Guayaquil',
+    tipoCuenta: 'corriente',
+    numeroCuenta: '0987654321',
+  },
+  {
+    nombreIdentificacion: 'Banco del Pacífico',
+    tipoCuenta: 'ahorros',
+    numeroCuenta: '1122334455',
+  },
+],
 
     // SECCIÓN 8
-    esPEP: data?.esPEP || 'no',
-    pepPais: data?.pepPais || '',
-    pepInstitucion: data?.pepInstitucion || '',
-    pepFechaCumplimiento: data?.pepFechaCumplimiento || '',
-    pepDireccion: data?.pepDireccion || '',
-    pepTelefono: data?.pepTelefono || '',
-    
-    esFamiliarPEP: data?.esFamiliarPEP || 'no',
-    familiarPEPNombres: data?.familiarPEPNombres || '',
-    familiarPEPParentesco: data?.familiarPEPParentesco || '',
-    familiarPEPCampo: data?.familiarPEPCampo || '',
-    
-    tieneRelacionPEP: data?.tieneRelacionPEP || 'no',
-    tipoRelacionPEP: data?.tipoRelacionPEP || '',
-    relacionPEPNombres: data?.relacionPEPNombres || '',
+    esPEP: data?.esPEP || 'si',
+    pepCargo: data?.pepCargo || 'Director General',
+    pepFuncionesSI: data?.pepFuncionesSI || 'si',
+    pepInstitucion: data?.pepInstitucion || 'Ministerio de Finanzas',
+    pepFechaCulminacion: data?.pepFechaCulminacion || '01/01/2024',
+    pepDireccion: data?.pepDireccion || 'Av. Amazonas 123',
+    pepTelefono: data?.pepTelefono || '0991234567',
+    esFamiliarPEP: data?.esFamiliarPEP || 'si',
+    familiarPEPNombres: data?.familiarPEPNombres || 'Carlos Pérez',
+    familiarPEPParentesco: data?.familiarPEPParentesco || 'Hermano',
+    familiarPEPCargo: data?.familiarPEPCargo || 'Ministerio de Salud',
+    tieneRelacionPEP: data?.tieneRelacionPEP || 'si',
+    tipoRelacionPEP: data?.tipoRelacionPEP || 'comercial',
+    relacionPEPNombres: data?.relacionPEPNombres || 'Ana García',
+    relacionPEPCargo: data?.relacionPEPCargo || 'Gerente Comercial',
 
     // SECCIÓN 9
-    fondosTerceros: data?.fondosTerceros || [],
+    fondosTerceros: data?.fondosTerceros || [
+      {
+        nombresCompletos: 'Pedro Ramírez García',
+        numeroIdentificacion: '0923456781',
+        nacionalidad: 'Ecuatoriana',
+        paisResidencia: 'Ecuador',
+        profesion: 'Contador',
+        telefono: '0987654322',
+        direccionDomicilio: 'Av. 9 de Octubre 123',
+        actividadEconomica: 'Servicios Contables',
+      },
+    ],
 
     // SECCIÓN 10
     beneficiariosFinales: data?.beneficiariosFinales || [
       {
-        nombresCompletos: 'PEDRO PÉREZ',
+        nombresCompletos: 'JUAN PÉREZ',
         porcentajeParticipacion: '50%',
-        numeroIdentificacion: '0912345680',
+        numeroIdentificacion: '1718975251',
         nacionalidad: 'Ecuatoriana',
         paisResidencia: 'Ecuador',
         parentesco: 'Hijo',
-        telefono: '0998765432'
+        telefono: '0991234567'
       },
       {
         nombresCompletos: 'ANA PÉREZ',
