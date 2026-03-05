@@ -144,6 +144,15 @@ export interface ConozcaSuClientePNData {
 
   // === SECCIÓN 10: BENEFICIARIO FINAL ===
   beneficiariosFinales?: BeneficiarioFinal[];
+
+  // === SECCIÓN 11 ===
+  fondosProvenientesDe?: string;
+  ciudadFecha?: string;
+  clienteCI?: string;
+  funcionarioNombre?: string;
+  funcionarioCI?: string;
+  funcionarioCargo?: string;
+
 }
 
 export interface ReferenciaBancaria {
@@ -335,6 +344,15 @@ export class CreateConozcaSuClientePdfBufferUseCase {
 
       // SECCIÓN 10
       beneficiariosFinales: i.beneficiariosFinales,
+
+      // SECCIÓN 11
+      fondosProvenientesDe: this.toStr(i.fondosProvenientesDe),
+      ciudadFecha:          this.toStr(i.ciudadFecha),
+      clienteCI:            this.toStr(i.clienteCI),
+      funcionarioNombre:    this.toStr(i.funcionarioNombre),
+      funcionarioCI:        this.toStr(i.funcionarioCI),
+      funcionarioCargo:     this.toStr(i.funcionarioCargo),
+
     };
   }
 
@@ -1153,6 +1171,14 @@ export class CreateConozcaSuClientePdfBufferUseCase {
       fondoDireccion: { x: 155, y: 567, maxW: 130, size: 9 },
       fondoActividad: { x: 400, y: 567, maxW: 148, size: 9 },
 
+      // === SECCIÓN 11 ===
+      fondosProvenientesDe: { x: 145, y: 297, maxW: 180, size: 9 },
+      ciudadFecha:          { x: 85, y: 200, maxW: 180, size: 9 },
+      clienteCI:            { x: 85, y: 173, maxW: 180, size: 9 },
+      funcionarioNombre:    { x: 330, y: 200, maxW: 180, size: 9 },
+      funcionarioCI:        { x: 330, y: 173, maxW: 70,  size: 9 },
+      funcionarioCargo:     { x: 425, y: 173, maxW: 80,  size: 9 },
+
       // === SECCIÓN 12 ===
       doc12RUC:              { x: 490, y: 137, size: 8 },
       doc12CertResidencia:   { x: 490, y: 127, size: 8 },
@@ -1318,6 +1344,14 @@ export class CreateConozcaSuClientePdfBufferUseCase {
       this.drawText(page, ben.parentesco ?? '',              { ...pos.parentesco,     font }, color);
       this.drawText(page, ben.telefono ?? '',                { ...pos.telefono,       font }, color);
     });
+
+    // === SECCIÓN 11 ===
+    this.drawText(page, data.fondosProvenientesDe || '', { ...POS.fondosProvenientesDe, font }, color);
+    this.drawText(page, data.ciudadFecha          || '', { ...POS.ciudadFecha,          font }, color);
+    this.drawText(page, data.clienteCI            || '', { ...POS.clienteCI,            font }, color);
+    this.drawText(page, data.funcionarioNombre    || '', { ...POS.funcionarioNombre,    font }, color);
+    this.drawText(page, data.funcionarioCI        || '', { ...POS.funcionarioCI,        font }, color);
+    this.drawText(page, data.funcionarioCargo     || '', { ...POS.funcionarioCargo,     font }, color);
 
     // === SECCIÓN 12 ===
     this.drawText(page, 'X', { ...POS.doc12RUC,            font: fontBold }, color);

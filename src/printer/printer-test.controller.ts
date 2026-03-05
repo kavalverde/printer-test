@@ -230,6 +230,15 @@ export class TestConozcaSuClientePNDto {
 
   // === SECCIÓN 10: BENEFICIARIO FINAL ===
   beneficiariosFinales?: BeneficiarioFinalDto[];
+
+  // === SECCIÓN 11 ===
+  fondosProvenientesDe?: string;
+  ciudadFecha?: string;
+  clienteCI?: string;
+  funcionarioNombre?: string;
+  funcionarioCI?: string;
+  funcionarioCargo?: string;
+
 }
 
 export class ReferenciaBancariaDto {
@@ -498,6 +507,15 @@ async generateConozcaClienteTestPdf(
         telefono: '0998765433'
       }
     ],
+
+    // SECCIÓN 11
+    fondosProvenientesDe: data?.fondosProvenientesDe || 'Recursos propios',
+    ciudadFecha:          data?.ciudadFecha          || 'Guayaquil, 05/03/2026',
+    clienteCI:            data?.clienteCI            || '1718975251',
+    funcionarioNombre:    data?.funcionarioNombre    || 'Enrique Montalvo',
+    funcionarioCI:        data?.funcionarioCI        || '1718975251',
+    funcionarioCargo:     data?.funcionarioCargo     || 'Gerente de Cliente',
+    
   };
 
   console.log('Datos recibidos para Conozca su Cliente PDF:', data);
