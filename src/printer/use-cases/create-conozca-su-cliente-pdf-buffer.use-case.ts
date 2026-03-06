@@ -153,6 +153,20 @@ export interface ConozcaSuClientePNData {
   funcionarioCI?: string;
   funcionarioCargo?: string;
 
+  // === SECCIÓN 12 ===
+  doc12RUC?: boolean;
+  doc12CertResidencia?: boolean;
+  doc12Cedula?: boolean;
+  doc12RolJubilacion?: boolean;
+  doc12CertLaboral?: boolean;
+  doc12Planilla?: boolean;
+  doc12Representante?: boolean;
+  doc12IVA?: boolean;
+  doc12Renta?: boolean;
+  doc12EstadosFinanc?: boolean;
+  doc12RefComercial?: boolean;
+  doc12RefBancaria?: boolean;
+
 }
 
 export interface ReferenciaBancaria {
@@ -286,35 +300,35 @@ export class CreateConozcaSuClientePdfBufferUseCase {
       // SECCIÓN 5
       unidadEmpresa: this.toStr(i.unidadEmpresa).toLowerCase(),
 
-      ingresosSalario: this.toStr(i.ingresosSalario),
-      ingresosHonorarios: this.toStr(i.ingresosHonorarios),
-      ingresosNegocioPropio: this.toStr(i.ingresosNegocioPropio),
-      ingresosOtros: this.toStr(i.ingresosOtros),
-      ingresosEspecifiqueOtros: this.toStr(i.ingresosEspecifiqueOtros),
-      totalIngresos: this.toStr(i.totalIngresos),
+      ingresosSalario:          this.toNum(i.ingresosSalario),
+      ingresosHonorarios:       this.toNum(i.ingresosHonorarios),
+      ingresosNegocioPropio:    this.toNum(i.ingresosNegocioPropio),
+      ingresosOtros:            this.toNum(i.ingresosOtros),
+      ingresosEspecifiqueOtros: this.toNum(i.ingresosEspecifiqueOtros),
+      totalIngresos:            this.toNum(i.totalIngresos),
 
-      gastosAlimentacion: this.toStr(i.gastosAlimentacion),
-      gastosEducacion: this.toStr(i.gastosEducacion),
-      gastosSalud: this.toStr(i.gastosSalud),
-      gastosVivienda: this.toStr(i.gastosVivienda),
-      gastosOtros: this.toStr(i.gastosOtros),
-      gastosEspecifiqueOtros: this.toStr(i.gastosEspecifiqueOtros),
-      totalGastos: this.toStr(i.totalGastos),
+      gastosAlimentacion:       this.toNum(i.gastosAlimentacion),
+      gastosEducacion:          this.toNum(i.gastosEducacion),
+      gastosSalud:              this.toNum(i.gastosSalud),
+      gastosVivienda:           this.toNum(i.gastosVivienda),
+      gastosOtros:              this.toNum(i.gastosOtros),
+      gastosEspecifiqueOtros:   this.toNum(i.gastosEspecifiqueOtros),
+      totalGastos:              this.toNum(i.totalGastos),
 
-      activosVehiculo: this.toStr(i.activosVehiculo),
-      activosCuentaPorCobrar: this.toStr(i.activosCuentaPorCobrar),
-      activosInversiones: this.toStr(i.activosInversiones),
-      activosAcciones: this.toStr(i.activosAcciones),
-      activosDerechosFiduciarios: this.toStr(i.activosDerechosFiduciarios),
-      activosOtros: this.toStr(i.activosOtros),
-      activosEspecifiqueOtros: this.toStr(i.activosEspecifiqueOtros),
-      totalActivos: this.toStr(i.totalActivos),
+      activosVehiculo:              this.toNum(i.activosVehiculo),
+      activosCuentaPorCobrar:       this.toNum(i.activosCuentaPorCobrar),
+      activosInversiones:           this.toNum(i.activosInversiones),
+      activosAcciones:              this.toNum(i.activosAcciones),
+      activosDerechosFiduciarios:   this.toNum(i.activosDerechosFiduciarios),
+      activosOtros:                 this.toNum(i.activosOtros),
+      activosEspecifiqueOtros:      this.toNum(i.activosEspecifiqueOtros),
+      totalActivos:                 this.toNum(i.totalActivos),
 
-      pasivosDeudas: this.toStr(i.pasivosDeudas),
-      pasivosPrestamos: this.toStr(i.pasivosPrestamos),
-      pasivosOtros: this.toStr(i.pasivosOtros),
-      pasivosEspecifiqueOtros: this.toStr(i.pasivosEspecifiqueOtros),
-      totalPasivos: this.toStr(i.totalPasivos),
+      pasivosDeudas:            this.toNum(i.pasivosDeudas),
+      pasivosPrestamos:         this.toNum(i.pasivosPrestamos),
+      pasivosOtros:             this.toNum(i.pasivosOtros),
+      pasivosEspecifiqueOtros:  this.toStr(i.pasivosEspecifiqueOtros),
+      totalPasivos:             this.toNum(i.totalPasivos),
 
       // SECCIÓN 6
       referenciasBancarias: i.referenciasBancarias,
@@ -353,12 +367,32 @@ export class CreateConozcaSuClientePdfBufferUseCase {
       funcionarioCI:        this.toStr(i.funcionarioCI),
       funcionarioCargo:     this.toStr(i.funcionarioCargo),
 
+      // SECCIÓN 12
+      doc12RUC:            i.doc12RUC            ?? false,
+      doc12CertResidencia: i.doc12CertResidencia ?? false,
+      doc12Cedula:         i.doc12Cedula         ?? false,
+      doc12RolJubilacion:  i.doc12RolJubilacion  ?? false,
+      doc12CertLaboral:    i.doc12CertLaboral     ?? false,
+      doc12Planilla:       i.doc12Planilla        ?? false,
+      doc12Representante:  i.doc12Representante   ?? false,
+      doc12IVA:            i.doc12IVA             ?? false,
+      doc12Renta:          i.doc12Renta           ?? false,
+      doc12EstadosFinanc:  i.doc12EstadosFinanc   ?? false,
+      doc12RefComercial:   i.doc12RefComercial    ?? false,
+      doc12RefBancaria:    i.doc12RefBancaria      ?? false,
+
     };
   }
 
   private toStr(v: any): string {
     if (v === null || v === undefined) return '';
     return String(v).trim();
+  }
+
+  private toNum(v: any): string {
+    if (v === null || v === undefined || v === '') return '0';
+    const n = parseFloat(String(v).replace(/[^0-9.-]/g, ''));
+    return isNaN(n) ? '0' : String(n);
   }
 
   private async fillPagina1(
@@ -418,12 +452,11 @@ export class CreateConozcaSuClientePdfBufferUseCase {
 
       // === SECCIÓN 2 ===
       // Ocupación checkboxes
-      ocupacionDependiente: { x: 95, y: 581, size: 12 },
-      ocupacionIndependiente: { x: 264, y: 581, size: 12 },
-      ocupacionAmaCasa: { x: 379, y: 581, size: 12 },
-      ocupacionJubilacion: { x: 329, y: 581, size: 12 },
-      ocupacionEstudiante: { x: 412, y: 581, size: 12 },
-      ocupacionEmprendedor: { x: 459, y: 581, size: 12 },
+      ocupacionIndependiente:{ x: 329, y: 582, size: 10 },
+      ocupacionJubilacion:   { x: 379, y: 582, size: 10 },
+      ocupacionAmaCasa:      { x: 411, y: 582, size: 10 },
+      ocupacionEstudiante:   { x: 459, y: 582, size: 10 },
+      ocupacionEmprendedor:  { x: 506, y: 582, size: 10 },
 
       // Cargo checkboxes
       cargoPublico: { x: 160, y: 582, size: 10 },
@@ -481,7 +514,7 @@ export class CreateConozcaSuClientePdfBufferUseCase {
       gastosSalud: { x: 202, y: 247, maxW: 75, size: 8 },
       gastosVivienda: { x: 202, y: 232, maxW: 75, size: 8 },
       gastosOtros: { x: 202, y: 210, maxW: 75, size: 8 },
-      gastosEspecifiqueOtros: { x: 456, y: 260, maxW: 100, size: 5 },
+      gastosEspecifiqueOtros: { x: 470, y: 260, maxW: 100, size: 5 },
       totalGastos: { x: 202, y: 180, maxW: 75, size: 8 },
 
       // Activos (columna aproximadamente x: 300)
@@ -506,21 +539,21 @@ export class CreateConozcaSuClientePdfBufferUseCase {
       refComercial1Telefono: { x: 440, y: 28, maxW: 110, size: 9 },
 
     };
-    // === SECCIÓN 5 ===
+    // === SECCIÓN 6 ===
     const REF_POSITIONS = [
       {
         banco: { x: 80, y: 120, maxW: 220, size: 9 },
-        tipoCuenta: { x: 310, y: 120, maxW: 80, size: 9 },
+        tipoCuenta: { x: 300, y: 120, maxW: 80, size: 9 },
         numero: { x: 395, y: 120, maxW: 160, size: 9 },
       },
       {
         banco: { x: 80, y: 105, maxW: 220, size: 9 },
-        tipoCuenta: { x: 310, y: 105, maxW: 80, size: 9 },
+        tipoCuenta: { x: 300, y: 105, maxW: 80, size: 9 },
         numero: { x: 395, y: 105, maxW: 160, size: 9 },
       },
       {
         banco: { x: 80, y: 90, maxW: 220, size: 9 },
-        tipoCuenta: { x: 310, y: 90, maxW: 80, size: 9 },
+        tipoCuenta: { x: 300, y: 90, maxW: 80, size: 9 },
         numero: { x: 395, y: 90, maxW: 160, size: 9 },
       },
     ];
@@ -692,53 +725,16 @@ export class CreateConozcaSuClientePdfBufferUseCase {
 
     // === SECCIÓN 2 ===
     const ocupacion = data.ocupacion || '';
-    if (ocupacion.includes('dependiente')) {
-      this.drawText(
-        page,
-        'X',
-        { ...POS.ocupacionDependiente, font: fontBold },
-        color,
-      );
-    }
     if (ocupacion.includes('independiente')) {
-      this.drawText(
-        page,
-        'X',
-        { ...POS.ocupacionIndependiente, font: fontBold },
-        color,
-      );
-    }
-    if (ocupacion.includes('ama') || ocupacion.includes('casa')) {
-      this.drawText(
-        page,
-        'X',
-        { ...POS.ocupacionAmaCasa, font: fontBold },
-        color,
-      );
-    }
-    if (ocupacion.includes('jubilacion') || ocupacion.includes('jubilad')) {
-      this.drawText(
-        page,
-        'X',
-        { ...POS.ocupacionJubilacion, font: fontBold },
-        color,
-      );
-    }
-    if (ocupacion.includes('estudiante')) {
-      this.drawText(
-        page,
-        'X',
-        { ...POS.ocupacionEstudiante, font: fontBold },
-        color,
-      );
-    }
-    if (ocupacion.includes('emprendedor')) {
-      this.drawText(
-        page,
-        'X',
-        { ...POS.ocupacionEmprendedor, font: fontBold },
-        color,
-      );
+      this.drawText(page, 'X', { ...POS.ocupacionIndependiente, font: fontBold }, color);
+    } else if (ocupacion.includes('jubilac') || ocupacion.includes('jubilad')) {
+      this.drawText(page, 'X', { ...POS.ocupacionJubilacion, font: fontBold }, color);
+    } else if (ocupacion.includes('ama') || ocupacion.includes('casa')) {
+      this.drawText(page, 'X', { ...POS.ocupacionAmaCasa, font: fontBold }, color);
+    } else if (ocupacion.includes('estudiante')) {
+      this.drawText(page, 'X', { ...POS.ocupacionEstudiante, font: fontBold }, color);
+    } else if (ocupacion.includes('emprendedor')) {
+      this.drawText(page, 'X', { ...POS.ocupacionEmprendedor, font: fontBold }, color);
     }
 
     // Tipo de cargo
@@ -754,43 +750,13 @@ export class CreateConozcaSuClientePdfBufferUseCase {
     }
 
     // Datos laborales
-    this.drawText(
-      page,
-      data.nombreCompania || "",
-      { ...POS.nombreCompania, font },
-      color,
-    );
-    this.drawText(page, data.cargo || "", { ...POS.cargo, font }, color);
-    this.drawText(
-      page,
-      data.actividadEconomica || "",
-      { ...POS.actividadEconomica, font },
-      color,
-    );
-    this.drawText(
-      page,
-      data.direccionLaboral || "",
-      { ...POS.direccionLaboral, font },
-      color,
-    );
-    this.drawText(
-      page,
-      data.ciudadLaboral || "",
-      { ...POS.ciudadLaboral, font },
-      color,
-    );
-    this.drawText(
-      page,
-      data.telefonoLaboral || "",
-      { ...POS.telefonoLaboral, font },
-      color,
-    );
-    this.drawText(
-      page,
-      data.emailLaboral || "",
-      { ...POS.emailLaboral, font },
-      color,
-    );
+    this.drawText(page, data.nombreCompania || '',     { ...POS.nombreCompania,     font }, color);
+    this.drawText(page, data.cargo || '',              { ...POS.cargo,              font }, color);
+    this.drawText(page, data.actividadEconomica || '', { ...POS.actividadEconomica, font }, color);
+    this.drawText(page, data.direccionLaboral || '',   { ...POS.direccionLaboral,   font }, color);
+    this.drawText(page, data.ciudadLaboral || '',      { ...POS.ciudadLaboral,      font }, color);
+    this.drawText(page, data.telefonoLaboral || '',    { ...POS.telefonoLaboral,    font }, color);
+    this.drawText(page, data.emailLaboral || '',       { ...POS.emailLaboral,       font }, color);
 
     // === SECCIÓN 3 ===
     if (data.representanteNombre) {
@@ -1354,18 +1320,18 @@ export class CreateConozcaSuClientePdfBufferUseCase {
     this.drawText(page, data.funcionarioCargo     || '', { ...POS.funcionarioCargo,     font }, color);
 
     // === SECCIÓN 12 ===
-    this.drawText(page, 'X', { ...POS.doc12RUC,            font: fontBold }, color);
-    this.drawText(page, 'X', { ...POS.doc12CertResidencia, font: fontBold }, color);
-    this.drawText(page, 'X', { ...POS.doc12Cedula,         font: fontBold }, color);
-    this.drawText(page, 'X', { ...POS.doc12RolJubilacion,  font: fontBold }, color);
-    this.drawText(page, 'X', { ...POS.doc12CertLaboral,    font: fontBold }, color);
-    this.drawText(page, 'X', { ...POS.doc12Planilla,       font: fontBold }, color);
-    this.drawText(page, 'X', { ...POS.doc12Representante,  font: fontBold }, color);
-    this.drawText(page, 'X', { ...POS.doc12IVA,            font: fontBold }, color);
-    this.drawText(page, 'X', { ...POS.doc12Renta,          font: fontBold }, color);
-    this.drawText(page, 'X', { ...POS.doc12EstadosFinanc,  font: fontBold }, color);
-    this.drawText(page, 'X', { ...POS.doc12RefComercial,   font: fontBold }, color);
-    this.drawText(page, 'X', { ...POS.doc12RefBancaria,    font: fontBold }, color);
+    if (data.doc12RUC)            this.drawText(page, 'X', { ...POS.doc12RUC,            font: fontBold }, color);
+    if (data.doc12CertResidencia) this.drawText(page, 'X', { ...POS.doc12CertResidencia, font: fontBold }, color);
+    if (data.doc12Cedula)         this.drawText(page, 'X', { ...POS.doc12Cedula,         font: fontBold }, color);
+    if (data.doc12RolJubilacion)  this.drawText(page, 'X', { ...POS.doc12RolJubilacion,  font: fontBold }, color);
+    if (data.doc12CertLaboral)    this.drawText(page, 'X', { ...POS.doc12CertLaboral,    font: fontBold }, color);
+    if (data.doc12Planilla)       this.drawText(page, 'X', { ...POS.doc12Planilla,       font: fontBold }, color);
+    if (data.doc12Representante)  this.drawText(page, 'X', { ...POS.doc12Representante,  font: fontBold }, color);
+    if (data.doc12IVA)            this.drawText(page, 'X', { ...POS.doc12IVA,            font: fontBold }, color);
+    if (data.doc12Renta)          this.drawText(page, 'X', { ...POS.doc12Renta,          font: fontBold }, color);
+    if (data.doc12EstadosFinanc)  this.drawText(page, 'X', { ...POS.doc12EstadosFinanc,  font: fontBold }, color);
+    if (data.doc12RefComercial)   this.drawText(page, 'X', { ...POS.doc12RefComercial,   font: fontBold }, color);
+    if (data.doc12RefBancaria)    this.drawText(page, 'X', { ...POS.doc12RefBancaria,    font: fontBold }, color);
   }
   private drawText(
     page: PDFPage,

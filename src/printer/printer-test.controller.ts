@@ -239,6 +239,20 @@ export class TestConozcaSuClientePNDto {
   funcionarioCI?: string;
   funcionarioCargo?: string;
 
+  // === SECCIÓN 12 ===
+  doc12RUC?: boolean;
+  doc12CertResidencia?: boolean;
+  doc12Cedula?: boolean;
+  doc12RolJubilacion?: boolean;
+  doc12CertLaboral?: boolean;
+  doc12Planilla?: boolean;
+  doc12Representante?: boolean;
+  doc12IVA?: boolean;
+  doc12Renta?: boolean;
+  doc12EstadosFinanc?: boolean;
+  doc12RefComercial?: boolean;
+  doc12RefBancaria?: boolean;
+
 }
 
 export class ReferenciaBancariaDto {
@@ -363,6 +377,7 @@ async generateConozcaClienteTestPdf(
     // SECCIÓN 2
     cargoTipo: data?.cargoTipo || 'privado',
     nombreCompania: data?.nombreCompania || 'Empresa XYZ S.A.',
+    ocupacion: data?.ocupacion || 'independiente',
     cargo: data?.cargo || 'Gerente Financiero',
     actividadEconomica: data?.actividadEconomica || 'Servicios Financieros',
     direccionLaboral: data?.direccionLaboral || 'Av. Empresarial 456',
@@ -393,34 +408,31 @@ async generateConozcaClienteTestPdf(
     // SECCIÓN 5
     unidadEmpresa: data?.unidadEmpresa || 'no',
     
-    ingresosSalario: data?.ingresosSalario || '3000.00',
-    ingresosHonorarios: data?.ingresosHonorarios || '500.00',
-    ingresosNegocioPropio: data?.ingresosNegocioPropio || '400.00',
-    ingresosOtros: data?.ingresosOtros || '200.00',
-    ingresosEspecifiqueOtros: data?.ingresosEspecifiqueOtros || 'Dividendos',
-    totalIngresos: data?.totalIngresos || '3700.00',
-    
-    gastosAlimentacion: data?.gastosAlimentacion || '500.00',
-    gastosEducacion: data?.gastosEducacion || '300.00',
-    gastosSalud: data?.gastosSalud || '200.00',
-    gastosVivienda: data?.gastosVivienda || '800.00',
-    gastosOtros: data?.gastosOtros || '400.00',
-    gastosEspecifiqueOtros: data?.gastosEspecifiqueOtros || 'Transporte, entretenimiento',
-    totalGastos: data?.totalGastos || '2200.00',
-    
-    activosVehiculo: data?.activosVehiculo || '15000.00',
-    activosCuentaPorCobrar: data?.activosCuentaPorCobrar || '1000.00',
-    activosInversiones: data?.activosInversiones || '5000.00',
-    activosAcciones: data?.activosAcciones || '2000.00',
-    activosDerechosFiduciarios: data?.activosDerechosFiduciarios || '1500.00',
-    activosOtros: data?.activosOtros || '3000.00',
-    activosEspecifiqueOtros: data?.activosEspecifiqueOtros || 'Ahorros',
-    totalActivos: data?.totalActivos || '26000.00',
-    
-    pasivosDeudas: data?.pasivosDeudas || '5000.00',
-    pasivosPrestamos: data?.pasivosPrestamos || '10000.00',
-    pasivosOtros: data?.pasivosOtros || '1000.00',
-    totalPasivos: data?.totalPasivos || '16000.00',
+    ingresosSalario:       data?.ingresosSalario       ?? '1500',
+    ingresosHonorarios:    data?.ingresosHonorarios    ?? '',
+    ingresosNegocioPropio: data?.ingresosNegocioPropio ?? '300',
+    ingresosOtros:         data?.ingresosOtros         ?? '',
+    totalIngresos:         data?.totalIngresos         ?? '1800',
+
+    gastosAlimentacion:    data?.gastosAlimentacion    ?? '400',
+    gastosEducacion:       data?.gastosEducacion       ?? '',
+    gastosSalud:           data?.gastosSalud           ?? '150',
+    gastosVivienda:        data?.gastosVivienda        ?? '',
+    gastosOtros:           data?.gastosOtros           ?? '50',
+    totalGastos:           data?.totalGastos           ?? '600',
+
+    activosVehiculo:            data?.activosVehiculo            ?? '10000',
+    activosCuentaPorCobrar:     data?.activosCuentaPorCobrar     ?? '',
+    activosInversiones:         data?.activosInversiones         ?? '3000',
+    activosAcciones:            data?.activosAcciones            ?? '',
+    activosDerechosFiduciarios: data?.activosDerechosFiduciarios ?? '',
+    activosOtros:               data?.activosOtros               ?? '500',
+    totalActivos:               data?.totalActivos               ?? '13500',
+
+    pasivosDeudas:      data?.pasivosDeudas      ?? '',
+    pasivosPrestamos:   data?.pasivosPrestamos   ?? '5000',
+    pasivosOtros:       data?.pasivosOtros       ?? '',
+    totalPasivos:       data?.totalPasivos       ?? '5000',
 
     // SECCIÓN 6
     referenciasBancarias: data?.referenciasBancarias || [
@@ -515,6 +527,20 @@ async generateConozcaClienteTestPdf(
     funcionarioNombre:    data?.funcionarioNombre    || 'Enrique Montalvo',
     funcionarioCI:        data?.funcionarioCI        || '1718975251',
     funcionarioCargo:     data?.funcionarioCargo     || 'Gerente de Cliente',
+
+    // SECCIÓN 12
+    doc12RUC:            data?.doc12RUC            ?? true,
+    doc12CertResidencia: data?.doc12CertResidencia ?? true,
+    doc12Cedula:         data?.doc12Cedula         ?? true,
+    doc12RolJubilacion:  data?.doc12RolJubilacion  ?? false,
+    doc12CertLaboral:    data?.doc12CertLaboral    ?? true,
+    doc12Planilla:       data?.doc12Planilla       ?? false,
+    doc12Representante:  data?.doc12Representante  ?? false,
+    doc12IVA:            data?.doc12IVA            ?? false,
+    doc12Renta:          data?.doc12Renta          ?? false,
+    doc12EstadosFinanc:  data?.doc12EstadosFinanc  ?? false,
+    doc12RefComercial:   data?.doc12RefComercial   ?? true,
+    doc12RefBancaria:    data?.doc12RefBancaria     ?? true,
     
   };
 
