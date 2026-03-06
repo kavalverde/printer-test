@@ -152,6 +152,7 @@ export class TestConozcaSuClientePNDto {
   // === SECCIÓN 4: CÓNYUGE ===
   conyugeNombre?: string;
   conyugeIdentificacion?: string;
+  conyugePaisResidencia?: string;
   conyugeNacionalidad?: string;
   conyugeGenero?: string; // "masculino", "femenino"
   conyugeEstadoCivil?: string; // "casado", "union"
@@ -396,6 +397,7 @@ async generateConozcaClienteTestPdf(
 
     // SECCIÓN 4
     conyugeNombre: data?.conyugeNombre || 'MARÍA FERNANDA LÓPEZ DE PÉREZ',
+    conyugePaisResidencia: data?.conyugePaisResidencia || 'Ecuador',
     conyugeIdentificacion: data?.conyugeIdentificacion || '1718975253',
     conyugeNacionalidad: data?.conyugeNacionalidad || 'Ecuatoriana',
     conyugeGenero: data?.conyugeGenero || 'femenino',
@@ -424,7 +426,7 @@ async generateConozcaClienteTestPdf(
 
     activosVehiculo:            data?.activosVehiculo            ?? '10000',
     activosBienInmueble:        data?.activosBienInmueble        ?? '80000',
-    activosCuentaPorCobrar:     data?.activosCuentaPorCobrar     ?? '',
+    activosCuentaPorCobrar:     data?.activosCuentaPorCobrar     ?? '11111',
     activosInversiones:         data?.activosInversiones         ?? '3000',
     activosAcciones:            data?.activosAcciones            ?? '',
     activosDerechosFiduciarios: data?.activosDerechosFiduciarios ?? '',

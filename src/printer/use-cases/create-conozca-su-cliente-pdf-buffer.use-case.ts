@@ -63,6 +63,7 @@ export interface ConozcaSuClientePNData {
 
   // === SECCIÓN 4: INFORMACIÓN DEL CÓNYUGE ===
   conyugeNombre?: string;
+  conyugePaisResidencia?: string;
   conyugeIdentificacion?: string; // "NÚMERO DE CIUDAD O PASAPORTE"
   conyugeNacionalidad?: string;
   conyugeGenero?: string; // "MASCULINO", "PRIMERINO" (¿FEMENINO?)
@@ -290,6 +291,7 @@ export class CreateConozcaSuClientePdfBufferUseCase {
 
       // SECCIÓN 4
       conyugeNombre: this.toStr(i.conyugeNombre),
+      conyugePaisResidencia: this.toStr(i.conyugePaisResidencia),
       conyugeIdentificacion: this.toStr(i.conyugeIdentificacion),
       conyugeNacionalidad: this.toStr(i.conyugeNacionalidad),
       conyugeGenero: this.toStr(i.conyugeGenero).toLowerCase(),
@@ -495,6 +497,7 @@ export class CreateConozcaSuClientePdfBufferUseCase {
       conyugeProfesion: { x: 150, y: 395, maxW: 160, size: 9 },
       conyugeActividadEconomica: { x: 370, y: 395, maxW: 145, size: 9 },
       conyugeDireccion: { x: 150, y: 378, maxW: 160, size: 9 },
+      conyugePaisResidencia: { x: 370, y: 380, maxW: 145, size: 9 },
       conyugeEmail: { x: 150, y: 365, maxW: 160, size: 8 },
       conyugeTelefono: { x: 370, y: 365, maxW: 130, size: 9 },
 
@@ -520,15 +523,15 @@ export class CreateConozcaSuClientePdfBufferUseCase {
       gastosOtros: { x: 202, y: 210, maxW: 75, size: 8 },
       totalGastos: { x: 202, y: 180, maxW: 75, size: 8 },
 
-      // Activos (columna aproximadamente x: 300)
-      activosVehiculo: { x: 295, y: 285, maxW: 75, size: 6 },
-      activosBienInmueble: { x: 295, y: 275, maxW: 75, size: 6 },
-      activosCuentaPorCobrar: { x: 295, y: 275, maxW: 75, size: 6 },
-      activosInversiones: { x: 295, y: 265, maxW: 75, size: 6 },
-      activosAcciones: { x: 295, y: 250, maxW: 75, size: 6 },
-      activosDerechosFiduciarios: { x: 295, y: 235, maxW: 75, size: 6 },
-      activosOtros: { x: 295, y: 215, maxW: 75, size: 6 },
-      totalActivos: { x: 295, y: 180, maxW: 100, size: 6 },
+      // Activos
+      activosVehiculo:            { x: 295, y: 284, maxW: 75, size: 6 },
+      activosBienInmueble:        { x: 295, y: 274, maxW: 75, size: 6 },
+      activosCuentaPorCobrar:     { x: 295, y: 262, maxW: 75, size: 6 },
+      activosInversiones:         { x: 295, y: 249, maxW: 75, size: 6 },
+      activosAcciones:            { x: 295, y: 234, maxW: 75, size: 6 },
+      activosDerechosFiduciarios: { x: 295, y: 206, maxW: 75, size: 6 },
+      activosOtros:               { x: 295, y: 196, maxW: 75, size: 6 },
+      totalActivos:               { x: 295, y: 179, maxW: 100, size: 6 },
 
       // Pasivos (columna aproximadamente x: 400)
       pasivosDeudas: { x: 380, y: 275, maxW: 100, size: 6 },
@@ -813,6 +816,7 @@ export class CreateConozcaSuClientePdfBufferUseCase {
         { ...POS.conyugeNombre, font },
         color,
       );
+      this.drawText(page, data.conyugePaisResidencia || '', { ...POS.conyugePaisResidencia, font }, color);
       this.drawText(
         page,
         data.conyugeIdentificacion || "",
@@ -1033,12 +1037,6 @@ export class CreateConozcaSuClientePdfBufferUseCase {
       page,
       data.activosOtros || "",
       { ...POS.activosOtros, font },
-      color,
-    );
-    this.drawText(
-      page,
-      data.activosEspecifiqueOtros || "",
-      { ...POS.activosEspecifiqueOtros, font },
       color,
     );
     this.drawText(
