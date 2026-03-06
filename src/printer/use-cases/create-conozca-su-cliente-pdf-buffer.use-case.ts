@@ -319,7 +319,7 @@ export class CreateConozcaSuClientePdfBufferUseCase {
       totalGastos:              this.toNum(i.totalGastos),
 
       activosVehiculo:              this.toNum(i.activosVehiculo),
-      activosBienInmueble: this.toNum(i.activosBienInmueble),
+      activosBienInmueble:          this.toNum(i.activosBienInmueble),
       activosCuentaPorCobrar:       this.toNum(i.activosCuentaPorCobrar),
       activosInversiones:           this.toNum(i.activosInversiones),
       activosAcciones:              this.toNum(i.activosAcciones),
