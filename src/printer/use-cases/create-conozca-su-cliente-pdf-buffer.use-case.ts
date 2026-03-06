@@ -91,17 +91,16 @@ export interface ConozcaSuClientePNData {
   gastosSalud?: string;
   gastosVivienda?: string;
   gastosOtros?: string;
-  gastosEspecifiqueOtros?: string; // "ESPECIFIQUE SUS OTROS BARREROS" (para gastos)
   totalGastos?: string; // "TOTAL BARREROS MENSUALES"
 
   // Activos
   activosVehiculo?: string;
+  activosBienInmueble?: string;
   activosCuentaPorCobrar?: string;
   activosInversiones?: string;
   activosAcciones?: string; // "Acciones y entidades"
   activosDerechosFiduciarios?: string; // "Derechos fiscales, adquiridos por herencia, y Otros activos"
-  activosOtros?: string;
-  activosEspecifiqueOtros?: string; // "ESPECIFIQUE SUS OTROS BARREROS" (para activos)
+  activosOtros?: string; // "ESPECIFIQUE SUS OTROS BARREROS" (para activos)
   totalActivos?: string;
 
   // Pasivos
@@ -110,6 +109,10 @@ export interface ConozcaSuClientePNData {
   pasivosOtros?: string;
   pasivosEspecifiqueOtros?: string; // "ESPECIFIQUE SUS OTROS BARREROS" (para pasivos)
   totalPasivos?: string;
+
+  // OTROS 
+  activosEspecifiqueOtros?: string;
+  gastosEspecifiqueOtros?: string; // "ESPECIFIQUE SUS OTROS BARREROS" (para gastos)
 
   // === SECCIÓN 6: REFERENCIAS BANCARIAS ===
   referenciasBancarias?: ReferenciaBancaria[];
@@ -316,6 +319,7 @@ export class CreateConozcaSuClientePdfBufferUseCase {
       totalGastos:              this.toNum(i.totalGastos),
 
       activosVehiculo:              this.toNum(i.activosVehiculo),
+      activosBienInmueble: this.toNum(i.activosBienInmueble),
       activosCuentaPorCobrar:       this.toNum(i.activosCuentaPorCobrar),
       activosInversiones:           this.toNum(i.activosInversiones),
       activosAcciones:              this.toNum(i.activosAcciones),
@@ -505,7 +509,7 @@ export class CreateConozcaSuClientePdfBufferUseCase {
       ingresosHonorarios: { x: 120, y: 262, maxW: 75, size: 8 },
       ingresosNegocioPropio: { x: 120, y: 240, maxW: 75, size: 8 },
       ingresosOtros: { x: 120, y: 209, maxW: 75, size: 8 },
-      ingresosEspecifiqueOtros: { x: 470, y: 195, maxW: 100, size: 7 },
+      ingresosEspecifiqueOtros: { x: 470, y: 195, maxW: 100, size: 8 },
       totalIngresos: { x: 120, y: 180, maxW: 75, size: 8 },
 
       // Gastos (columna aproximadamente x: 200)
@@ -514,17 +518,16 @@ export class CreateConozcaSuClientePdfBufferUseCase {
       gastosSalud: { x: 202, y: 247, maxW: 75, size: 8 },
       gastosVivienda: { x: 202, y: 232, maxW: 75, size: 8 },
       gastosOtros: { x: 202, y: 210, maxW: 75, size: 8 },
-      gastosEspecifiqueOtros: { x: 470, y: 260, maxW: 100, size: 5 },
       totalGastos: { x: 202, y: 180, maxW: 75, size: 8 },
 
       // Activos (columna aproximadamente x: 300)
       activosVehiculo: { x: 295, y: 285, maxW: 75, size: 6 },
+      activosBienInmueble: { x: 295, y: 275, maxW: 75, size: 6 },
       activosCuentaPorCobrar: { x: 295, y: 275, maxW: 75, size: 6 },
       activosInversiones: { x: 295, y: 265, maxW: 75, size: 6 },
       activosAcciones: { x: 295, y: 250, maxW: 75, size: 6 },
       activosDerechosFiduciarios: { x: 295, y: 235, maxW: 75, size: 6 },
       activosOtros: { x: 295, y: 215, maxW: 75, size: 6 },
-      activosEspecifiqueOtros: { x: 295, y: 198, maxW: 100, size: 6 },
       totalActivos: { x: 295, y: 180, maxW: 100, size: 6 },
 
       // Pasivos (columna aproximadamente x: 400)
@@ -532,6 +535,10 @@ export class CreateConozcaSuClientePdfBufferUseCase {
       pasivosPrestamos: { x: 380, y: 245, maxW: 75, size: 6 },
       pasivosOtros: { x: 380, y: 210, maxW: 75, size: 6 },
       totalPasivos: { x: 380, y: 180, maxW: 100, size: 6 },
+
+      // OTROS
+      activosEspecifiqueOtros: { x: 295, y: 198, maxW: 100, size: 6 },
+      gastosEspecifiqueOtros: { x: 470, y: 260, maxW: 100, size: 5 },
 
       // === SECCIÓN 7 ===
       refComercial1Nombre:   { x: 80,  y: 28, maxW: 240, size: 9 },
@@ -997,6 +1004,7 @@ export class CreateConozcaSuClientePdfBufferUseCase {
       { ...POS.activosVehiculo, font },
       color,
     );
+    this.drawText(page, data.activosBienInmueble || '', { ...POS.activosBienInmueble, font }, color);
     this.drawText(
       page,
       data.activosCuentaPorCobrar || "",

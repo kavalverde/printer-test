@@ -183,6 +183,7 @@ export class TestConozcaSuClientePNDto {
   
   // Activos
   activosVehiculo?: string;
+  activosBienInmueble?: string;
   activosCuentaPorCobrar?: string;
   activosInversiones?: string;
   activosAcciones?: string;
@@ -422,6 +423,7 @@ async generateConozcaClienteTestPdf(
     totalGastos:           data?.totalGastos           ?? '600',
 
     activosVehiculo:            data?.activosVehiculo            ?? '10000',
+    activosBienInmueble:        data?.activosBienInmueble        ?? '80000',
     activosCuentaPorCobrar:     data?.activosCuentaPorCobrar     ?? '',
     activosInversiones:         data?.activosInversiones         ?? '3000',
     activosAcciones:            data?.activosAcciones            ?? '',
